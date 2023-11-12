@@ -35,11 +35,17 @@ public class OrderController {
     public ResponseEntity<UserOrder> submit(@PathVariable String username) {
         User user = userRepository.findByUsername(username);
         if (user == null) {
-            LOGGER.error(String.format("User with name %s was not found.", username));
+            LOGGER.error(String.format("Error occurred submitting order, User with name %s was not found.", username));
             return ResponseEntity.notFound().build();
         }
-        UserOrder order = UserOrder.createFromCart(user.getCart());
-        orderRepository.save(order);
+        UserOrder order = null;
+        try {
+            order = UserOrder.createFromCart(user.getCart());
+            orderRepository.save(order);
+        } catch (Exception ex) {
+            LOGGER.error("Error occurred submitting order.", ex);
+            return ResponseEntity.badRequest().build();
+        }
         LOGGER.info(String.format("Order successfully submitted by %s.", username));
         return ResponseEntity.ok(order);
     }

@@ -59,27 +59,27 @@ public class UserController {
         if (createUserRequest.getPassword() == null
                 || createUserRequest.getConfirmPassword() == null) {
             String error = String.format(
-                    "The password and confirmPassword must be set. Cannot create User '%s'.",
+                    "Error creating User, the password and confirmPassword must be set. Cannot create User '%s'.",
                     createUserRequest.getUsername());
             LOGGER.error(error);
             return ResponseEntity.badRequest().body(error);
         } else if (createUserRequest.getPassword().length() < MIN_PASSWORD_LENGTH) {
             String error = String.format(
-                    "Password must contain at least 7 characters. Cannot create User '%s'.",
+                    "Error creating User, password must contain at least 7 characters. Cannot create User '%s'.",
                     createUserRequest.getUsername());
             LOGGER.error(error);
             return ResponseEntity.badRequest().body(error);
         } else if (!createUserRequest.getPassword()
                 .equals(createUserRequest.getConfirmPassword())) {
             String error = String.format(
-                    "The password and confirmPassword do not match. Cannot create User '%s'.",
+                    "Error creating User, the password and confirmPassword do not match. Cannot create User '%s'.",
                     createUserRequest.getUsername());
             LOGGER.error(error);
             return ResponseEntity.badRequest().body(error);
         }
         user.setPassword(bCryptPasswordEncoder.encode(createUserRequest.getPassword()));
         userRepository.save(user);
-        LOGGER.info(String.format("User %s was successfully created.",
+        LOGGER.info(String.format("User was successfully created - %s.",
                 createUserRequest.getUsername()));
         return ResponseEntity.ok(user);
     }

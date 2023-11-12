@@ -116,7 +116,7 @@ public class UserControllerTest {
         }
 
         assertNotNull(str);
-        assertEquals("Password must contain at least 7 characters. Cannot create U"
+        assertEquals("Error creating User, password must contain at least 7 characters. Cannot create U"
                 + "ser 'test_user'.", str);
     }
 
@@ -139,7 +139,7 @@ public class UserControllerTest {
         }
 
         assertNotNull(str);
-        assertEquals("The password and confirmPassword do not match. Cannot create User 'test_user'.", str);
+        assertEquals("Error creating User, the password and confirmPassword do not match. Cannot create User 'test_user'.", str);
     }
 
     @Test
@@ -161,7 +161,7 @@ public class UserControllerTest {
         }
 
         assertNotNull(str);
-        assertEquals("The password and confirmPassword must be set. Cannot create User 'test_user'.", str);
+        assertEquals("Error creating User, the password and confirmPassword must be set. Cannot create User 'test_user'.", str);
     }
 
     private User getUser() {

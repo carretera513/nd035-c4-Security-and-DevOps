@@ -1,2 +1,9 @@
+# IntelliJ
 .idea/
+*.iws
+*.iml
+*.ipr
+
+# Project specific
 /starter_code/target/
+*.log

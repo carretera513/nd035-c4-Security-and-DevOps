@@ -18,12 +18,12 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.stereotype.Component;
 
 @Component
-public class JWTAuthenticationVerficationFilter extends BasicAuthenticationFilter {
+public class JWTAuthenticationVerificationFilter extends BasicAuthenticationFilter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
-            JWTAuthenticationVerficationFilter.class);
+            JWTAuthenticationVerificationFilter.class);
 
-    public JWTAuthenticationVerficationFilter(AuthenticationManager authManager) {
+    public JWTAuthenticationVerificationFilter(AuthenticationManager authManager) {
         super(authManager);
     }
 
@@ -51,7 +51,6 @@ public class JWTAuthenticationVerficationFilter extends BasicAuthenticationFilte
                     .verify(token.replace(SecurityConstants.TOKEN_PREFIX, ""))
                     .getSubject();
             if (user != null) {
-                LOGGER.info(String.format("User %s successfully authenticated.", user));
                 return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
             }
             LOGGER.error("Cannot authenticate with a null user.");
